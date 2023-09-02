@@ -1,0 +1,36 @@
+create table Inventory (
+	Item_code int primary key,
+	Item_name varchar(30) not null,
+	Item_price integer,
+	Item_total integer
+);
+insert  into Inventory(Item_code, Item_name, Item_price, Item_total)
+values (2341, 'Promag Tablet', 3000, 100),
+(2342, 'Hydro Coco 250ML', 7000, 20),
+(2343, 'Nutrive Benecol 100ML', 20000, 30),
+(2344, 'Blackmores Vit C 500Mg', 95000, 45),
+(2345, 'entrasol Gold 370G', 90000, 120);
+
+select Item_name
+from Inventory
+where Item_total = (select max(Item_total) from Inventory);
+
+update Inventory
+set Item_price = 5000
+where Item_code = '2341';
+
+delete from Inventory
+where Item_total = (select min(Item_total) from Inventory)
+
+create table Customer_order (
+	order_no int primary key,
+	purchase_amount integer,
+	order_date date,
+	customer_id integer,
+	salesman_id integer);
+	
+select *
+from Customer_order
+where (purchase_amount < 100)
+      OR (order_date < '2022-08-25' 
+		  AND customer_id <= 2001);
